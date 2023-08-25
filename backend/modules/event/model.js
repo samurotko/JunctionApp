@@ -25,6 +25,9 @@ const EventPageScriptSchema = require('@hackjunction/shared/schemas/EventPageScr
 const allowPublishPlugin = require('../../common/plugins/allowPublish')
 const updateAllowedPlugin = require('../../common/plugins/updateAllowed')
 const uploadHelper = require('../upload/helper')
+const ProjectDefaultFields = require('@hackjunction/shared/constants/project-default-fields')
+const SubmissionDefaultFieldsSchema = require('@hackjunction/shared/schemas/SubmissionDefaultFields')
+const SubmissionDefaultFields = require('@hackjunction/shared/constants/submission-default-fields')
 
 const EventSchema = new mongoose.Schema({
     /** Event info */
@@ -382,6 +385,18 @@ const EventSchema = new mongoose.Schema({
             },
             'cant have meetingrooms if meetings are not enabled',
         ], */
+    },
+    /* DELETE AFTER: Test section */
+    submissionFormQuestions: {
+        type: [RegistrationSectionSchema.mongoose],
+    },
+    submissionFormEnabledFields: {
+        type: [String],
+        default: ProjectDefaultFields,
+    },
+    submissionFormDefaultFields: {
+        type: SubmissionDefaultFieldsSchema.mongoose,
+        default: SubmissionDefaultFields,
     },
 })
 

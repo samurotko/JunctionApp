@@ -14,8 +14,9 @@ import EducationInput from 'components/inputs/EducationInput'
 import BooleanInput from 'components/inputs/BooleanInput'
 import RecruitmentOptionInput from 'components/inputs/RecruitmentOptionInput'
 import TeamOptionInput from 'components/inputs/TeamOptionInput'
+import FileInput from 'pages/_organise/slug/edit/submission/components/inputs/FileInput'
 const { fieldTypes } = RegistrationFields
-// TODO URL-input
+// TODO URL-input and file upload
 
 const RegistrationQuestion = ({
     field,
@@ -401,10 +402,11 @@ const RegistrationQuestion = ({
         }
     }
 
+    //TODO add custom field types here for URL and file upload
     const renderCustomInput = () => {
         switch (config.fieldType) {
             case 'text':
-                console.log('config', config)
+            case 'link':
                 return (
                     <FormControl
                         label={config.label}
@@ -425,7 +427,6 @@ const RegistrationQuestion = ({
                     </FormControl>
                 )
             case 'textarea':
-                console.log('config', config)
                 return (
                     <FormControl
                         label={config.label}
@@ -446,7 +447,6 @@ const RegistrationQuestion = ({
                     </FormControl>
                 )
             case 'boolean':
-                //console.log('f value', field.value)
                 return (
                     <FormControl
                         label={config.label}
@@ -509,6 +509,18 @@ const RegistrationQuestion = ({
                             onBlur={() => form.setFieldTouched(field.name)}
                             isMulti={true}
                         />
+                    </FormControl>
+                )
+            case 'attachment':
+                return (
+                    <FormControl
+                        label={config.label}
+                        hint={config.hint}
+                        touched={form.touched[field.name]}
+                        error={form.errors[field.name]}
+                    >
+                        {/* TODO component for file input needs to be linked to the formik fields */}
+                        <FileInput />
                     </FormControl>
                 )
             default:

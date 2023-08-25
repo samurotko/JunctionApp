@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import MarkdownInput from 'components/inputs/MarkdownInput'
 import Button from 'components/generic/Button'
 import TextInput from 'components/inputs/TextInput'
+import { generateSlug } from 'utils/dataModifiers'
 
 const useStyles = makeStyles(theme => ({
     label: {
@@ -76,6 +77,7 @@ export default ({
     }
 
     const handleAdd = () => {
+        console.log('After handling add:', data)
         const error = validate()
         if (error) {
             window.alert(error)
@@ -112,8 +114,14 @@ export default ({
 
     const handleChange = useCallback(
         (field, value) => {
+            const newData = { ...data }
+
+            if (field === 'label' && !editing) {
+                newData.name = generateSlug(value, 's')
+            }
+
             setData({
-                ...data,
+                ...newData,
                 [field]: value,
             })
         },

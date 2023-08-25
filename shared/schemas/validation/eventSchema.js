@@ -183,4 +183,6 @@ export default yup.object().shape({
     approved: yup.boolean(),
     theme: eventTheme,
     meetingRooms: yup.array().of(meetingRoom),
+    // DELETE AFTER: Testing area
+    submissionFormQuestions: yup.array().of(registrationSection),
 })
